@@ -1,4 +1,5 @@
-import { Box, Button, Divider, Flex, Heading, HStack, Input, SimpleGrid, VStack } from "@chakra-ui/react";
+import { Box, Button, Text, Divider, Flex, Heading, HStack, SimpleGrid, VStack } from "@chakra-ui/react";
+import { Input } from "../../components/Form/input";
 
 import { Header } from "../../components/Header";
 
@@ -19,6 +20,7 @@ export default function CreateUser() {
 
                    <VStack spacing='8'>
                         <SimpleGrid minChildWidth='240px' spacing='8' w='100%'>
+
                             <Input name='name' label='Nome completo'/>
                             <Input name='email' type='email' label='E-mail'/>
                         </SimpleGrid>
