@@ -13,6 +13,8 @@ export function PaginationItem({
         return (
             <Button 
                 size='sm'
+                border='none'
+                cursor={'pointer'}
                 fontSize='xs'
                 width='4'
                 colorScheme='pink'
@@ -29,8 +31,11 @@ export function PaginationItem({
 
     return (
         <Button 
+        border='none'
+        cursor={'pointer'}
         size='sm'
         fontSize='xs'
+        color='white'
         width='4'
         bgColor='gray.700'
         _hover={{
