@@ -33,3 +33,4 @@ export function useUsers() {
           staleTime: 1000 * 5 // 5 seconds
       })
 };
+
