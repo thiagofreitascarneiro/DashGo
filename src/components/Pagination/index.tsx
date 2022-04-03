@@ -1,36 +1,38 @@
 import { Box, Button, Stack, Text } from "@chakra-ui/react";
-import { PaginationItem } from "./PAginationItem";
+import { PaginationItem } from "./PaginationItem";
+
 
 interface PaginationProps {
     totalCountOfRegisters: number;
     registersPerPage?: number;
     currentPage?: number;
-    onPageChange?: (page: number) => void; 
+    onPageChange: (page: number) => void; 
 }
 
-const sibilingsCount = 1;
+const siblingsCount = 1;
 
 function generatePagesArray(from: number, to: number) {
-    return [...new Array(to - from)].map((_, index) => {
-            return from + index + 1;
-    })
-    .filter(page => page > 0)
-}
+    return [...new Array(to - from)]
+      .map((_, index) => {
+        return from + index + 1;
+      })
+      .filter((page) => page > 0);
+  }
 
 export function Pagination({
     totalCountOfRegisters,
     registersPerPage = 10,
     currentPage = 1,
-    onPageChange
+    onPageChange,
 }: PaginationProps) {
     const lastPage = Math.floor(totalCountOfRegisters / registersPerPage);
 
     const previusPages = currentPage > 1
-     ? generatePagesArray(currentPage - 1 - sibilingsCount, currentPage - 1)
+     ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1)
      : []
 
      const nextPages = currentPage < lastPage 
-     ? generatePagesArray(currentPage, Math.min(currentPage + sibilingsCount, lastPage))
+     ? generatePagesArray(currentPage, Math.min(currentPage + siblingsCount, lastPage))
      : []
 
     return (
@@ -46,29 +48,31 @@ export function Pagination({
             </Box>
            <Stack direction='row' spacing='2'>
 
-               {currentPage > (1 + sibilingsCount) && (
+               {currentPage > (1 + siblingsCount) && (
                    <>
-                    <PaginationItem number={1} /> 
-                    {currentPage > (2 + sibilingsCount) && 
-                   ( <Text color='gray.300' width='6' textAlign='center'>...</Text>)}
+                    <PaginationItem onPageChange={onPageChange} number={1} /> 
+                        { currentPage > (2 + siblingsCount) && (
+                     <Text color='gray.300' width='6' textAlign='center'>...</Text>
+                     )}
                    </>  
                )}
 
                {previusPages.length > 0 && previusPages.map(page => {
-                   return <PaginationItem key={page} number={page} />
+                   return <PaginationItem key={page} onPageChange={onPageChange} number={page} />
                })}
 
-               <PaginationItem number={currentPage} isCurrent/> 
+               <PaginationItem onPageChange={onPageChange} number={currentPage} isCurrent/> 
 
                {nextPages.length > 0 && nextPages.map(page => {
-                   return <PaginationItem key={page} number={page} />
+                   return <PaginationItem key={page} onPageChange={onPageChange} number={page} />
                })}
 
-                {(currentPage + sibilingsCount) < lastPage && (
-                    <>
-                        <PaginationItem number={lastPage} /> 
-                        {(currentPage + 1 + sibilingsCount) < lastPage && 
-                       (<Text color='gray.300' width='6' textAlign='center'>...</Text>)}
+                {(currentPage + siblingsCount) < lastPage && (
+                    <> 
+                        { (currentPage  + 1 + siblingsCount) < lastPage && ( 
+                         <Text color='gray.300' width='8' textAlign='center'>...</Text>
+                        )}
+                       <PaginationItem onPageChange={onPageChange} number={lastPage} />
                     </>  
                )}
                    
