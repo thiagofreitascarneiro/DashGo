@@ -5,7 +5,7 @@ type User = {
    id: string; 
    name: string;
    email: string;
-   createAt: string;
+   createdAt: string;
 }
 
 type GetUserResponse = {
@@ -22,6 +22,8 @@ export async function getUsers(page: number): Promise<GetUserResponse>  {
     });
 
     const totalCount = Number(headers["x-total-count"])
+
+    console.log(totalCount)
     
     const users = data.users.map(user => {
         return {
@@ -32,7 +34,7 @@ export async function getUsers(page: number): Promise<GetUserResponse>  {
               day: '2-digit',
               month: 'long',
               year: 'numeric'
-          })
+          }),
         };
     });
 
@@ -44,7 +46,7 @@ export async function getUsers(page: number): Promise<GetUserResponse>  {
 
 export function useUsers(page: number) {
    return useQuery(['users', page], () => getUsers(page),  {
-          staleTime: 1000 * 5, // 5 seconds
+          staleTime: 1000 * 60 * 10, // 5 seconds
       })
 };
 
